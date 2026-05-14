@@ -123,8 +123,6 @@ function loadSong(categoryId, songIndex, autoPlay = false) {
   setProgressFill(0);
   highlightActiveSongItem(songIndex, autoPlay);
   
-  if (song.cover && DOM.coverImgs[0]) DOM.coverImgs[0].src = song.cover;
-  
   if (autoPlay) playAudio();
   else setPlayingState(false);
 }
