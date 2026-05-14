@@ -271,12 +271,10 @@ a { color: inherit; text-decoration: none; }
 /* The strip that holds all 10 slides side-by-side */
 .cover-slider-track {
   display: flex;
-  width: calc(var(--slide-size) * var(--slide-count));
+  width: calc(var(--slide-size) * (var(--slide-count) + 1));
   height: 100%;
-
-  /* Continuous left-scroll animation — paused by default */
   animation: slideScroll var(--slider-duration) linear infinite;
-  animation-play-state: paused;   /* JS adds .is-playing to resume */
+  animation-play-state: paused;
   will-change: transform;
 }
 
