@@ -138,6 +138,8 @@ const MUSIC_DATA = [
       "./covers/foto8.jpg",
       "./covers/foto9.jpg",
       "./covers/foto10.jpg",
+      "./covers/foto11.jpg",
+      "./covers/foto12.jpg",
     ],
     songs: [
       {
@@ -159,6 +161,93 @@ const MUSIC_DATA = [
         title: "Tresno Tekan Mati",
         artist: "NDX AKA",
         src: "./NDX AKA/Tresno Tekan Mati.m4a",
+        duration: "0:00",
+      }
+    ],
+  },
+
+  /* ──────────────────────────────────────────────────────────
+     CATEGORY 5 — YOASOBI
+  ────────────────────────────────────────────────────────── */
+  {
+    id: "yoasobi",
+    label: "YOASOBI",
+    covers: [
+      "./covers/foto1.jpg",
+      "./covers/foto2.jpg",
+      "./covers/foto3.jpg",
+      "./covers/foto4.jpg",
+      "./covers/foto5.jpg",
+      "./covers/foto6.jpg",
+      "./covers/foto7.jpg",
+      "./covers/foto8.jpg",
+      "./covers/foto9.jpg",
+      "./covers/foto10.jpg",
+      "./covers/foto11.jpg",
+      "./covers/foto12.jpg",
+    ],
+    songs: [
+      {
+        id: 0,
+        title: "アイドル",
+        artist: "YOASOBI",
+        src: "./YOASOBI/アイドル.mp3",
+        duration: "0:00",
+      },
+      {
+        id: 1,
+        title: "あの夢をなぞって",
+        artist: "YOASOBI",
+        src: "./YOASOBI/あの夢をなぞって.mp3",
+        duration: "0:00",
+      },
+      {
+        id: 2,
+        title: "たふん",
+        artist: "YOASOBI",
+        src: "./YOASOBI/たふん.mp3",
+        duration: "0:00",
+      },
+      {
+        id: 3,
+        title: "ハルジオン",
+        artist: "YOASOBI",
+        src: "./YOASOBI/ハルジオン.mp3",
+        duration: "0:00",
+      },
+      {
+        id: 4,
+        title: "勇者",
+        artist: "YOASOBI",
+        src: "./YOASOBI/勇者.mp3",
+        duration: "0:00",
+      },
+      {
+        id: 5,
+        title: "夜に駆ける",
+        artist: "YOASOBI",
+        src: "./YOASOBI/夜に駆ける.mp3",
+        duration: "0:00",
+      },
+      {
+        id: 6,
+        title: "怪物",
+        artist: "YOASOBI",
+        src: "./YOASOBI/怪物.mp3",
+        duration: "0:00",
+      },
+      {
+        id: 7,
+        title: "祝福",
+        artist: "YOASOBI",
+        src: "./YOASOBI/祝福.mp3",
+        duration: "0:00",
+      },
+      {
+        id: 8,
+        title: "群青",
+        artist: "YOASOBI",
+        src: "./YOASOBI/群青.mp3",
         duration: "0:00",
       }
     ],
