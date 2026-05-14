@@ -711,6 +711,7 @@ a { color: inherit; text-decoration: none; }
 
 
 /* Song List Wrapper */
+/* Song List Wrapper */
 .song-list-wrapper {
   background: var(--bg-card);
   backdrop-filter: blur(14px);
@@ -720,7 +721,8 @@ a { color: inherit; text-decoration: none; }
   box-shadow:
     6px  6px 20px rgba(160,120,80,0.14),
    -3px -3px 12px rgba(255,255,255,0.80);
-  overflow: hidden;
+  overflow-y: auto;      /* Mengaktifkan scroll ke bawah */
+  max-height: 260px;     /* Membatasi tinggi agar pas menampilkan ~4 lagu */
   min-height: 120px;
 }
 
