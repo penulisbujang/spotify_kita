@@ -27,7 +27,7 @@ const DOM = {
   poetryModal:    document.getElementById("poetryModal"),
   closeModal:     document.querySelector(".close-modal"),
   
-  get coverImgs() { return Array.from({ length: 10 }, (_, i) => document.getElementById(`coverImg${i}`)); },
+  get coverImgs() { return Array.from({ length: 12 }, (_, i) => document.getElementById(`coverImg${i}`)); },
   get dots() { return Array.from(document.querySelectorAll(".dot")); },
 };
 
