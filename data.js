@@ -26,7 +26,6 @@ const MUSIC_DATA = [
         title: "Nothing's Gonna Change My Love For You",
         artist: "George Benson",
         src: "./George Benson/Nothing's Gonna Change My Love For You.m4a",
-        cover: "./covers/foto1.jpg",
         duration: "0:00",
       },
       {
@@ -34,7 +33,6 @@ const MUSIC_DATA = [
         title: "If Ever You're in My Arms Again",
         artist: "George Benson", 
         src: "./George Benson/If Ever You're in My Arms Again.m4a",
-        cover: "./covers/foto2.jpg",
         duration: "0:00",
       }
     ],
@@ -66,7 +64,6 @@ const MUSIC_DATA = [
         title: "If I Let You Go",
         artist: "Westlife",
         src: "./Westlife/If I Let You Go.m4a",
-        cover: "./covers/foto3.jpg",
         duration: "0:00",
       },
       {
@@ -74,7 +71,6 @@ const MUSIC_DATA = [
         title: "My Love",
         artist: "Westlife",
         src: "./Westlife/My Love.m4a",
-        cover: "./covers/foto4.jpg",
         duration: "0:00",
       },
       {
@@ -82,7 +78,6 @@ const MUSIC_DATA = [
         title: "Swear It Again",
         artist: "Westlife",
         src: "./Westlife/Swear It Again.m4a",
-        cover: "./covers/foto5.jpg",
         duration: "0:00",
       }
     ],
@@ -114,7 +109,6 @@ const MUSIC_DATA = [
         title: "I Want It That Way",
         artist: "Backstreet Boys",
         src: "./Backstreet Boys/I Want It That Way.m4a",
-        cover: "./covers/foto6.jpg",
         duration: "0:00",
       },
       {
@@ -122,7 +116,6 @@ const MUSIC_DATA = [
         title: "Shape of My Heart",
         artist: "Backstreet Boys",
         src: "./Backstreet Boys/Shape of My Heart.m4a",
-        cover: "./covers/foto7.jpg",
         duration: "0:00",
       }
     ],
@@ -152,7 +145,6 @@ const MUSIC_DATA = [
         title: "Ditinggal Rabi",
         artist: "NDX AKA",
         src: "./NDX AKA/Ditinggal Rabi.m4a",
-        cover: "./covers/foto8.jpg",
         duration: "0:00",
       },
       {
@@ -160,7 +152,6 @@ const MUSIC_DATA = [
         title: "Nemen",
         artist: "NDX AKA",
         src: "./NDX AKA/Nemen.m4a",
-        cover: "./covers/foto9.jpg",
         duration: "0:00",
       },
       {
@@ -168,7 +159,6 @@ const MUSIC_DATA = [
         title: "Tresno Tekan Mati",
         artist: "NDX AKA",
         src: "./NDX AKA/Tresno Tekan Mati.m4a",
-        cover: "./covers/foto10.jpg",
         duration: "0:00",
       }
     ],
