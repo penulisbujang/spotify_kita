@@ -26,7 +26,7 @@ const MUSIC_DATA = [
         title: "Nothing's Gonna Change My Love For You",
         artist: "George Benson",
         src: "./George Benson/Nothing's Gonna Change My Love For You.m4a",
-        duration: "0:00",
+        duration: "3:53",
       },
       {
         id: 1,
