@@ -1041,3 +1041,66 @@ a { color: inherit; text-decoration: none; }
 #btnRepeat {
   display: none !important;
 }
+
+/* ── 20. MULTI-OPTION SLEEP TIMER ── */
+.timer-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(210, 180, 140, 0.12);
+  padding: 5px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-lighter);
+  margin-left: 4px;
+  transition: all var(--t-fast);
+  cursor: pointer;
+}
+
+.timer-container:hover {
+  border-color: var(--border-soft);
+  background: rgba(210, 180, 140, 0.20);
+}
+
+.timer-btn {
+  width: 14px;
+  height: 14px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--t-fast);
+}
+
+.timer-select {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding-right: 2px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Efek menyala redup puitis saat timer aktif berjalan */
+.timer-container.active {
+  border-color: rgba(212, 150, 122, 0.4);
+  background: rgba(212, 150, 122, 0.08);
+}
+
+.timer-container.active .timer-btn,
+.timer-container.active .timer-select {
+  color: var(--accent-rose);
+}
+
+.timer-container.active .timer-btn {
+  animation: sleepPulse 3s ease-in-out infinite;
+}
+
+@keyframes sleepPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.93); }
+}
