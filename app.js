@@ -1,6 +1,8 @@
 "use strict";
 
 const DOM = {
+  timerContainer: document.getElementById("timerContainer"),
+  timerSelect:    document.getElementById("sleepTimerSelect"),
   playerCard:     document.querySelector(".player-card"),
   songTitle:      document.getElementById("songTitle"),
   songArtist:     document.getElementById("songArtist"),
@@ -38,6 +40,7 @@ const STATE = {
   isPlaying: false,
   isSeeking: false,
   currentDotIndex: 0,
+  sleepTimerId: null,
 };
 
 function init() {
@@ -272,7 +275,35 @@ function onDotClick(index) {
   const slideCount = parseInt(rootStyles.getPropertyValue("--slide-count"), 10) || 10;
   DOM.sliderTrack.style.animationDelay = `${-(index * (totalSecs / slideCount))}s`;
 }
+function handleSleepTimerChange() {
+  /* 1. Bersihkan timer lama yang sedang berjalan (jika ada) */
+  if (STATE.sleepTimerId) {
+    clearTimeout(STATE.sleepTimerId);
+    STATE.sleepTimerId = null;
+  }
 
+  const minutes = parseInt(DOM.timerSelect.value, 10);
+
+  /* 2. Jika user memilih 'Off' (0) */
+  if (minutes === 0) {
+    DOM.timerContainer.classList.remove("active");
+    DOM.timerSelect.title = "Timer Tidur tidak aktif";
+    return;
+  }
+
+  /* 3. Jika user memilih durasi waktu tertentu */
+  DOM.timerContainer.classList.add("active");
+  DOM.timerSelect.title = `Lagu akan mati otomatis dalam ${minutes} menit`;
+
+  // Hitung: menit x 60 detik x 1000 milidetik
+  STATE.sleepTimerId = setTimeout(() => {
+    pauseAudio(); // Mematikan musik secara aman
+    STATE.sleepTimerId = null;
+    DOM.timerSelect.value = "0"; // Kembalikan opsi pilihan ke tulisan 'Off'
+    DOM.timerContainer.classList.remove("active");
+    DOM.timerSelect.title = "Timer Tidur tidak aktif";
+  }, minutes * 60 * 1000);
+}
 function formatTime(seconds) {
   if (!isFinite(seconds) || seconds < 0) return "0:00";
   const m = Math.floor(seconds / 60);
@@ -288,6 +319,10 @@ function attachEventListeners() {
   DOM.btnPlay.addEventListener("click", togglePlayPause);
   DOM.btnNext.addEventListener("click", playNext);
   DOM.btnPrev.addEventListener("click", playPrev);
+
+  if (DOM.timerSelect) {
+    DOM.timerSelect.addEventListener("change", handleSleepTimerChange);
+  }
   
   if (DOM.btnHeart) {
     DOM.btnHeart.addEventListener("click", () => {
