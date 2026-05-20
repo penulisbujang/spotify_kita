@@ -1104,3 +1104,332 @@ a { color: inherit; text-decoration: none; }
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.5; transform: scale(0.93); }
 }
+
+
+/* ── 21. SLEEP TIMER — NEW DRUM PICKER ─────────────────────── */
+
+/* ---- Timer button in volume row ---- */
+.timer-btn {
+  /* override the old div styles — now a real <button> */
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--t-fast), transform var(--t-fast);
+}
+.timer-btn svg { width: 16px; height: 16px; }
+.timer-btn:hover { color: var(--accent-primary); transform: scale(1.18); }
+
+/* Countdown text next to moon icon */
+.timer-countdown {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-rose);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  min-width: 0;
+  max-width: 72px;
+  overflow: hidden;
+  transition: color var(--t-fast);
+}
+.timer-countdown:empty { display: none; }
+
+/* Active glow on container */
+.timer-container.active .timer-btn {
+  color: var(--accent-rose);
+  animation: sleepPulse 3s ease-in-out infinite;
+}
+
+/* Hide the old select-based style if it lingers */
+.timer-select { display: none; }
+
+
+/* ---- Timer Modal ---- */
+.timer-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--t-mid) var(--ease-soft);
+}
+
+.timer-modal.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Blurred backdrop */
+.timer-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(59, 42, 26, 0.38);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* Bottom sheet */
+.timer-modal__sheet {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 480px;
+  background: var(--bg-card-solid);
+  border-radius: 28px 28px 0 0;
+  padding: 14px 28px 44px;
+  box-shadow:
+    0 -10px 48px rgba(120, 80, 40, 0.24),
+    0 -2px  12px rgba(120, 80, 40, 0.10);
+  border: 1px solid var(--border-soft);
+  border-bottom: none;
+  transform: translateY(100%);
+  transition: transform var(--t-slow) var(--ease-smooth);
+}
+
+.timer-modal.open .timer-modal__sheet {
+  transform: translateY(0);
+}
+
+/* Drag handle pill */
+.timer-modal__handle {
+  width: 40px;
+  height: 4px;
+  border-radius: 99px;
+  background: rgba(180, 145, 100, 0.30);
+  margin: 0 auto 18px;
+}
+
+/* Header row */
+.timer-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.timer-modal__title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.timer-modal__close {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: rgba(210, 180, 140, 0.20);
+  border: 1px solid var(--border-lighter);
+  color: var(--text-muted);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: background var(--t-fast), color var(--t-fast), transform var(--t-fast);
+}
+.timer-modal__close svg { width: 14px; height: 14px; }
+.timer-modal__close:hover {
+  background: rgba(210, 180, 140, 0.38);
+  color: var(--text-primary);
+  transform: scale(1.10);
+}
+
+.timer-modal__hint {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+
+/* ---- Drum Stage ---- */
+.timer-drum-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+/* The glowing selection highlight bar */
+.drum-selection-bar {
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 48px;
+  background: linear-gradient(
+    90deg,
+    rgba(196, 154, 108, 0.18),
+    rgba(212, 150, 122, 0.12),
+    rgba(196, 154, 108, 0.18)
+  );
+  border-radius: 14px;
+  border-top:    1.5px solid rgba(196, 154, 108, 0.32);
+  border-bottom: 1.5px solid rgba(196, 154, 108, 0.32);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Column wrapper (drum + fade overlays stacked) */
+.timer-drum-col {
+  position: relative;
+  width: 100px;
+  height: 240px; /* 5 items × 48 px */
+}
+
+/* Fade-out overlays (top and bottom) */
+.drum-overlay {
+  position: absolute;
+  left: 0; right: 0;
+  height: 96px; /* 2 items */
+  pointer-events: none;
+  z-index: 3;
+}
+.drum-overlay--top {
+  top: 0;
+  background: linear-gradient(to bottom, var(--bg-card-solid) 25%, transparent);
+}
+.drum-overlay--bottom {
+  bottom: 0;
+  background: linear-gradient(to top, var(--bg-card-solid) 25%, transparent);
+}
+
+/* The scrollable drum */
+.timer-drum {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  position: relative;
+  z-index: 1;
+  /* Subtle inset track */
+  border-radius: 12px;
+  outline: none;
+}
+.timer-drum::-webkit-scrollbar { display: none; }
+
+/* Padding items — allow first & last items to centre */
+.timer-drum__pad {
+  height: 96px;
+  flex-shrink: 0;
+}
+
+/* Individual number items */
+.timer-drum__item {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: center;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  user-select: none;
+  cursor: pointer;
+  transition: color var(--t-fast), transform var(--t-fast);
+  letter-spacing: 0.03em;
+}
+
+/* Colon separator */
+.timer-drum__sep {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  line-height: 1;
+  padding-bottom: 4px;
+  flex-shrink: 0;
+  z-index: 2;
+  position: relative;
+}
+
+/* Column labels */
+.timer-drum-labels {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 22px;
+}
+.timer-drum-labels span {
+  width: 100px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.timer-drum-labels__sep {
+  width: 24px !important; /* match sep space */
+}
+
+
+/* ---- Action buttons ---- */
+.timer-modal__actions {
+  display: flex;
+  gap: 12px;
+}
+
+.timer-action-btn {
+  flex: 1;
+  padding: 14px var(--space-sm);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition:
+    transform  var(--t-fast) var(--ease-smooth),
+    box-shadow var(--t-fast),
+    background var(--t-fast);
+}
+
+.timer-cancel-btn {
+  background: rgba(210, 180, 140, 0.20);
+  color: var(--text-secondary);
+  border: 1.5px solid var(--border-soft);
+}
+.timer-cancel-btn:hover {
+  background: rgba(210, 180, 140, 0.34);
+  transform: scale(1.03);
+}
+
+.timer-set-btn {
+  background: linear-gradient(145deg, #D4A96A, #C08040);
+  color: #FFF8EE;
+  box-shadow:
+    0 4px 18px rgba(196, 154, 108, 0.50),
+    0 1px  4px rgba(100,  60, 20, 0.18);
+  letter-spacing: 0.01em;
+}
+.timer-set-btn:hover {
+  transform: scale(1.04);
+  box-shadow:
+    0 6px 24px rgba(196, 154, 108, 0.65),
+    0 2px  6px rgba(100,  60, 20, 0.24);
+}
+.timer-set-btn:active { transform: scale(0.97); }
+
+/* Stop/off variant label (applied via JS) */
+.timer-set-btn.is-off {
+  background: linear-gradient(145deg, #C4937A, #B07060);
+}
