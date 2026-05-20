@@ -185,8 +185,7 @@
   </button>
 </section>
 
-        <!-- Volume Control -->
-        <div class="volume-row" aria-label="Volume control">
+       <div class="volume-row" aria-label="Volume control">
           <svg class="volume-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
             <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
@@ -202,11 +201,22 @@
             step="0.01"
             aria-label="Volume"
           />
-          <button class="timer-btn" id="btnTimer" title="Set Timer Tidur (30 Menit)" aria-label="Sleep timer">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-          </button>
+          
+          <div class="timer-container" id="timerContainer">
+            <div class="timer-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            </div>
+            <select id="sleepTimerSelect" class="timer-select" aria-label="Pilih waktu tidur">
+              <option value="0" selected>Off</option>
+              <option value="15">15m</option>
+              <option value="30">30m</option>
+              <option value="45">45m</option>
+              <option value="60">1 Jam</option>
+              <option value="90">1.5 Jam</option>
+            </select>
+          </div>
         </div>
 
         <!-- Hidden Audio Element -->
