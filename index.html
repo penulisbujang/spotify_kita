@@ -203,19 +203,12 @@
           />
           
           <div class="timer-container" id="timerContainer">
-            <div class="timer-btn">
+            <button class="timer-btn" id="btnTimer" aria-label="Atur Timer Tidur" title="Sleep Timer">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
               </svg>
-            </div>
-            <select id="sleepTimerSelect" class="timer-select" aria-label="Pilih waktu tidur">
-              <option value="0" selected>Off</option>
-              <option value="15">15m</option>
-              <option value="30">30m</option>
-              <option value="45">45m</option>
-              <option value="60">1 Jam</option>
-              <option value="90">1.5 Jam</option>
-            </select>
+            </button>
+            <span class="timer-countdown" id="timerCountdown" aria-live="polite" aria-label="Sisa waktu timer"></span>
           </div>
         </div>
 
@@ -277,6 +270,60 @@
       </footer>
 
     </div><!-- /.app-wrapper -->
+
+    <!-- =========================================================
+         SLEEP TIMER MODAL — Drum Picker
+    ========================================================== -->
+    <div class="timer-modal" id="timerModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Atur Timer Tidur">
+      <div class="timer-modal__backdrop" id="timerModalBackdrop"></div>
+      <div class="timer-modal__sheet">
+
+        <div class="timer-modal__handle" aria-hidden="true"></div>
+
+        <div class="timer-modal__header">
+          <h3 class="timer-modal__title">
+            <span aria-hidden="true">🌙</span> Timer Tidur
+          </h3>
+          <button class="timer-modal__close" id="btnTimerClose" aria-label="Tutup">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+        <p class="timer-modal__hint">Musik akan berhenti otomatis setelah...</p>
+
+        <div class="timer-drum-stage" aria-hidden="true">
+          <div class="drum-selection-bar"></div>
+
+          <div class="timer-drum-col">
+            <div class="drum-overlay drum-overlay--top"></div>
+            <div class="timer-drum" id="drumHours" tabindex="0" aria-label="Pilih jam"></div>
+            <div class="drum-overlay drum-overlay--bottom"></div>
+          </div>
+
+          <span class="timer-drum__sep">:</span>
+
+          <div class="timer-drum-col">
+            <div class="drum-overlay drum-overlay--top"></div>
+            <div class="timer-drum" id="drumMinutes" tabindex="0" aria-label="Pilih menit"></div>
+            <div class="drum-overlay drum-overlay--bottom"></div>
+          </div>
+        </div>
+
+        <div class="timer-drum-labels" aria-hidden="true">
+          <span>JAM</span>
+          <span class="timer-drum-labels__sep"></span>
+          <span>MENIT</span>
+        </div>
+
+        <div class="timer-modal__actions">
+          <button class="timer-action-btn timer-cancel-btn" id="btnTimerCancel">Batal</button>
+          <button class="timer-action-btn timer-set-btn"    id="btnTimerSet">✨ Mulai Timer</button>
+        </div>
+
+      </div>
+    </div>
 
     <!-- External Scripts (order matters) -->
     <script src="data.js"></script>
