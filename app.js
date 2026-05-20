@@ -1,7 +1,6 @@
 "use strict";
 
 const DOM = {
-  btnTimer:       document.getElementById("btnTimer"),
   playerCard:     document.querySelector(".player-card"),
   songTitle:      document.getElementById("songTitle"),
   songArtist:     document.getElementById("songArtist"),
@@ -17,6 +16,7 @@ const DOM = {
   btnNext:        document.getElementById("btnNext"),
   btnHeart:       document.getElementById("btnHeart"),
   btnPoetry:      document.getElementById("btnPoetry"),
+  btnTimer:       document.getElementById("btnTimer"),
   
   volumeBar:      document.getElementById("volumeBar"),
   categoryNav:    document.getElementById("categoryNav"),
