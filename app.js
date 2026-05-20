@@ -2,7 +2,6 @@
 
 const DOM = {
   timerContainer: document.getElementById("timerContainer"),
-  timerSelect:    document.getElementById("sleepTimerSelect"),
   playerCard:     document.querySelector(".player-card"),
   songTitle:      document.getElementById("songTitle"),
   songArtist:     document.getElementById("songArtist"),
@@ -19,6 +18,14 @@ const DOM = {
   btnHeart:       document.getElementById("btnHeart"),
   btnPoetry:      document.getElementById("btnPoetry"),
   btnTimer:       document.getElementById("btnTimer"),
+  timerModal:     document.getElementById("timerModal"),
+  timerModalBackdrop: document.getElementById("timerModalBackdrop"),
+  btnTimerClose:  document.getElementById("btnTimerClose"),
+  btnTimerCancel: document.getElementById("btnTimerCancel"),
+  btnTimerSet:    document.getElementById("btnTimerSet"),
+  drumHours:      document.getElementById("drumHours"),
+  drumMinutes:    document.getElementById("drumMinutes"),
+  timerCountdown: document.getElementById("timerCountdown"),
   
   volumeBar:      document.getElementById("volumeBar"),
   categoryNav:    document.getElementById("categoryNav"),
@@ -41,6 +48,8 @@ const STATE = {
   isSeeking: false,
   currentDotIndex: 0,
   sleepTimerId: null,
+  countdownIntervalId: null,
+  sleepEndTime: null,
 };
 
 function init() {
@@ -275,34 +284,138 @@ function onDotClick(index) {
   const slideCount = parseInt(rootStyles.getPropertyValue("--slide-count"), 10) || 10;
   DOM.sliderTrack.style.animationDelay = `${-(index * (totalSecs / slideCount))}s`;
 }
-function handleSleepTimerChange() {
-  /* 1. Bersihkan timer lama yang sedang berjalan (jika ada) */
-  if (STATE.sleepTimerId) {
-    clearTimeout(STATE.sleepTimerId);
-    STATE.sleepTimerId = null;
+/* ── SLEEP TIMER — DRUM PICKER ─────────────────────────────── */
+
+const DRUM_ITEM_H = 48; // px — must match CSS .timer-drum__item height
+
+/** Build the scrollable drum with number items + top/bottom padding. */
+function buildDrum(drumEl, count) {
+  drumEl.innerHTML = '';
+
+  const topPad = document.createElement('div');
+  topPad.className = 'timer-drum__pad';
+  drumEl.appendChild(topPad);
+
+  for (let i = 0; i < count; i++) {
+    const item = document.createElement('div');
+    item.className = 'timer-drum__item';
+    item.textContent = String(i).padStart(2, '0');
+    drumEl.appendChild(item);
   }
 
-  const minutes = parseInt(DOM.timerSelect.value, 10);
+  const botPad = document.createElement('div');
+  botPad.className = 'timer-drum__pad';
+  drumEl.appendChild(botPad);
+}
 
-  /* 2. Jika user memilih 'Off' (0) */
-  if (minutes === 0) {
-    DOM.timerContainer.classList.remove("active");
-    DOM.timerSelect.title = "Timer Tidur tidak aktif";
+/** Read selected index from a drum's current scroll position. */
+function getDrumValue(drumEl) {
+  return Math.round(drumEl.scrollTop / DRUM_ITEM_H);
+}
+
+/** Update the "Mulai Timer / Matikan Timer" button label while user scrolls. */
+function updateSetBtnLabel() {
+  if (!DOM.btnTimerSet) return;
+  const h = getDrumValue(DOM.drumHours);
+  const m = getDrumValue(DOM.drumMinutes);
+  if (h === 0 && m === 0) {
+    DOM.btnTimerSet.textContent = '⏹ Matikan Timer';
+    DOM.btnTimerSet.classList.add('is-off');
+  } else {
+    DOM.btnTimerSet.textContent = '✨ Mulai Timer';
+    DOM.btnTimerSet.classList.remove('is-off');
+  }
+}
+
+/** Open the drum-picker modal. */
+function openTimerModal() {
+  buildDrum(DOM.drumHours, 24);
+  buildDrum(DOM.drumMinutes, 60);
+
+  DOM.timerModal.classList.add('open');
+  DOM.timerModal.setAttribute('aria-hidden', 'false');
+
+  // Determine initial values
+  let initH = 0, initM = 30;
+  if (STATE.sleepEndTime) {
+    const remMs   = Math.max(0, STATE.sleepEndTime - Date.now());
+    const remMins = Math.ceil(remMs / 60000);
+    initH = Math.floor(remMins / 60);
+    initM = remMins % 60;
+  }
+
+  // Set scroll positions after the modal is rendered
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    DOM.drumHours.scrollTop   = initH * DRUM_ITEM_H;
+    DOM.drumMinutes.scrollTop = initM * DRUM_ITEM_H;
+    updateSetBtnLabel();
+  }));
+}
+
+/** Close the modal without changing the timer. */
+function closeTimerModal() {
+  DOM.timerModal.classList.remove('open');
+  DOM.timerModal.setAttribute('aria-hidden', 'true');
+}
+
+/** Clear ALL timer state (timeout + countdown interval). */
+function clearAllTimerState() {
+  if (STATE.sleepTimerId)       { clearTimeout(STATE.sleepTimerId);         STATE.sleepTimerId       = null; }
+  if (STATE.countdownIntervalId){ clearInterval(STATE.countdownIntervalId); STATE.countdownIntervalId = null; }
+  STATE.sleepEndTime = null;
+}
+
+/** Refresh the countdown badge every second while timer is active. */
+function tickCountdown() {
+  if (!STATE.sleepEndTime) return;
+  const remMs   = Math.max(0, STATE.sleepEndTime - Date.now());
+  const totalS  = Math.ceil(remMs / 1000);
+  const h = Math.floor(totalS / 3600);
+  const m = Math.floor((totalS % 3600) / 60);
+  const s = totalS % 60;
+  DOM.timerCountdown.textContent = h > 0
+    ? `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`
+    : `${m}:${String(s).padStart(2,'0')}`;
+}
+
+/** Apply the chosen hours/minutes and start the sleep timer. */
+function confirmSetTimer() {
+  const h = getDrumValue(DOM.drumHours);
+  const m = getDrumValue(DOM.drumMinutes);
+  const totalMs = (h * 60 + m) * 60 * 1000;
+
+  clearAllTimerState();
+
+  if (totalMs <= 0) {
+    // User set 0:00 — just cancel any running timer
+    DOM.timerContainer.classList.remove('active');
+    DOM.timerCountdown.textContent = '';
+    closeTimerModal();
     return;
   }
 
-  /* 3. Jika user memilih durasi waktu tertentu */
-  DOM.timerContainer.classList.add("active");
-  DOM.timerSelect.title = `Lagu akan mati otomatis dalam ${minutes} menit`;
+  STATE.sleepEndTime = Date.now() + totalMs;
+  DOM.timerContainer.classList.add('active');
 
-  // Hitung: menit x 60 detik x 1000 milidetik
+  // Start the live countdown badge
+  tickCountdown();
+  STATE.countdownIntervalId = setInterval(tickCountdown, 1000);
+
+  // Schedule the actual stop
   STATE.sleepTimerId = setTimeout(() => {
-    pauseAudio(); // Mematikan musik secara aman
-    STATE.sleepTimerId = null;
-    DOM.timerSelect.value = "0"; // Kembalikan opsi pilihan ke tulisan 'Off'
-    DOM.timerContainer.classList.remove("active");
-    DOM.timerSelect.title = "Timer Tidur tidak aktif";
-  }, minutes * 60 * 1000);
+    pauseAudio();
+    clearAllTimerState();
+    DOM.timerContainer.classList.remove('active');
+    DOM.timerCountdown.textContent = '';
+  }, totalMs);
+
+  closeTimerModal();
+}
+
+/** Cancel the active timer (called via backdrop / cancel btn when timer is on). */
+function cancelAndCloseModal() {
+  // "Batal" just closes — it does NOT stop an active timer.
+  closeTimerModal();
 }
 function formatTime(seconds) {
   if (!isFinite(seconds) || seconds < 0) return "0:00";
@@ -320,9 +433,16 @@ function attachEventListeners() {
   DOM.btnNext.addEventListener("click", playNext);
   DOM.btnPrev.addEventListener("click", playPrev);
 
-  if (DOM.timerSelect) {
-    DOM.timerSelect.addEventListener("change", handleSleepTimerChange);
-  }
+  // Sleep timer — drum picker
+  if (DOM.btnTimer)         DOM.btnTimer.addEventListener('click', openTimerModal);
+  if (DOM.timerModalBackdrop) DOM.timerModalBackdrop.addEventListener('click', cancelAndCloseModal);
+  if (DOM.btnTimerClose)    DOM.btnTimerClose.addEventListener('click', cancelAndCloseModal);
+  if (DOM.btnTimerCancel)   DOM.btnTimerCancel.addEventListener('click', cancelAndCloseModal);
+  if (DOM.btnTimerSet)      DOM.btnTimerSet.addEventListener('click', confirmSetTimer);
+
+  // Update button label as user scrolls the drums
+  if (DOM.drumHours)   DOM.drumHours.addEventListener('scroll',   updateSetBtnLabel, { passive: true });
+  if (DOM.drumMinutes) DOM.drumMinutes.addEventListener('scroll', updateSetBtnLabel, { passive: true });
   
   if (DOM.btnHeart) {
     DOM.btnHeart.addEventListener("click", () => {
