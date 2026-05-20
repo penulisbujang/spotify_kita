@@ -251,6 +251,152 @@ const MUSIC_DATA = [
         duration: "4:22",
       }
     ],
+  },
+
+  /* ──────────────────────────────────────────────────────────
+     CATEGORY 6 — Lagu Lawas
+  ────────────────────────────────────────────────────────── */
+  {
+    id: "lagu-lawas",
+    label: "Lagu Lawas",
+    covers: [
+      "./covers/foto1.jpg",
+      "./covers/foto2.jpg",
+      "./covers/foto3.jpg",
+      "./covers/foto4.jpg",
+      "./covers/foto5.jpg",
+      "./covers/foto6.jpg",
+      "./covers/foto7.jpg",
+      "./covers/foto8.jpg",
+      "./covers/foto9.jpg",
+      "./covers/foto10.jpg",
+      "./covers/foto11.jpg",
+      "./covers/foto12.jpg",
+    ],
+    songs: [
+      {
+        id: 0,
+        title: "Berdayung Cinta",
+        artist: "Yus Yunus & Anyqu",
+        src: "./Lagu Lawas/Berdayung Cinta.mp3",
+        duration: "4:50",
+      },
+      {
+        id: 1,
+        title: "Buih Jadi Permadani",
+        artist: "Exist",
+        src: "./Lagu Lawas/Buih Jadi Permadani.mp3",
+        duration: "5:03",
+      },
+      {
+        id: 2,
+        title: "Gerimis Mengundang",
+        artist: "Slam",
+        src: "./Lagu Lawas/Gerimis Mengundang.mp3",
+        duration: "5:31",
+      },
+      {
+        id: 3,
+        title: "Kandas",
+        artist: "Evie Tamala & Imron Sadewo",
+        src: "./Lagu Lawas/Kandas.mp3",
+        duration: "4:41",
+      },
+      {
+        id: 4,
+        title: "Memori Berkasih",
+        artist: "Achik Spin & Siti Nordiana",
+        src: "./Lagu Lawas/Memori Berkasih.mp3",
+        duration: "5:19",
+      },
+      {
+        id: 5,
+        title: "Purnama Merindu",
+        artist: "Siti Nurhaliza",
+        src: "./Lagu Lawas/Purnama Merindu.mp3",
+        duration: "4:26",
+      },
+      {
+        id: 6,
+        title: "Satu Hati Sampai Mati",
+        artist: "Thomas Arya & Elsa Pitaloka",
+        src: "./Lagu Lawas/Satu Hati Sampai Mati.mp3",
+        duration: "5:45",
+      },
+      {
+        id: 7,
+        title: "Syahdu",
+        artist: "Rhoma Irama & Rita Sugiarto",
+        src: "./Lagu Lawas/Syahdu.mp3",
+        duration: "6:50",
+      },
+      {
+        id: 8,
+        title: "Di Sana Menanti Di Sini Menunggu",
+        artist: "Ukays",
+        src: "./Lagu Lawas/Di Sana Menanti Di Sini Menunggu.mp3",
+        duration: "5:30",
+      }
+    ],
+  },
+
+  /* ──────────────────────────────────────────────────────────
+     CATEGORY 7 — Guyon Waton
+  ────────────────────────────────────────────────────────── */
+  {
+    id: "guyon-waton",
+    label: "Guyon Waton",
+    covers: [
+      "./covers/foto1.jpg",
+      "./covers/foto2.jpg",
+      "./covers/foto3.jpg",
+      "./covers/foto4.jpg",
+      "./covers/foto5.jpg",
+      "./covers/foto6.jpg",
+      "./covers/foto7.jpg",
+      "./covers/foto8.jpg",
+      "./covers/foto9.jpg",
+      "./covers/foto10.jpg",
+      "./covers/foto11.jpg",
+      "./covers/foto12.jpg",
+    ],
+    songs: [
+      {
+        id: 0,
+        title: "Kelangan",
+        artist: "Guyon Waton",
+        src: "./Guyon Waton/Kelangan.mp3",
+        duration: "5:11",
+      },
+      {
+        id: 1,
+        title: "Klebus",
+        artist: "Guyon Waton",
+        src: "./Guyon Waton/Klebus.mp3",
+        duration: "5:13",
+      },
+      {
+        id: 2,
+        title: "Kok Iso Yo",
+        artist: "Guyon Waton",
+        src: "./Guyon Waton/Kok Iso Yo.mp3",
+        duration: "5:36",
+      },
+      {
+        id: 3,
+        title: "Sanes",
+        artist: "Guyon Waton",
+        src: "./Guyon Waton/Sanes.mp3",
+        duration: "5:01",
+      },
+      {
+        id: 4,
+        title: "Wirang",
+        artist: "Guyon Waton",
+        src: "./Guyon Waton/Wirang.mp3",
+        duration: "5:00",
+      }
+    ],
   }
 
 ];
