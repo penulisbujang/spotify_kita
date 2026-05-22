@@ -11,6 +11,7 @@ const DOM = {
   progressFill:   document.getElementById("progressFill"),
   timeCurrent:    document.getElementById("timeCurrent"),
   timeTotal:      document.getElementById("timeTotal"),
+  dynamicGreeting: document.getElementById("dynamicGreeting"),
   
   btnPlay:        document.getElementById("btnPlay"),
   btnPrev:        document.getElementById("btnPrev"),
@@ -58,7 +59,12 @@ function init() {
   DOM.audio.volume = parseFloat(DOM.volumeBar.value);
   syncVolumeBarStyle();
   attachEventListeners();
+  
+  /* ── Jalankan Waktu Kembar Secara Real-Time ── */
+  updateDualClock();
+  setInterval(updateDualClock, 1000);
 }
+
 
 function renderCategoryTabs() {
   DOM.categoryNav.innerHTML = "";
@@ -482,3 +488,53 @@ function attachEventListeners() {
 
 if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
 else init();
+function updateDualClock() {
+  const now = new Date();
+  
+  // Dapatkan waktu dasar UTC universal
+  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+  
+  // Konversi manual: Yogyakarta (UTC+7) & Kumamoto (UTC+9)
+  const jogjaTime = new Date(utc + (7 * 60 * 60 * 1000));
+  const kumamotoTime = new Date(utc + (9 * 60 * 60 * 1000));
+  
+  const formatTimeStr = (date) => {
+    const hh = String(date.getHours()).padStart(2, "0");
+    const mm = String(date.getMinutes()).padStart(2, "0");
+    return `${hh}:${mm}`;
+  };
+  
+  const elHaaziq = document.getElementById("clockHaaziq");
+  const elMitha = document.getElementById("clockMitha");
+  
+  if (elHaaziq) elHaaziq.textContent = formatTimeStr(jogjaTime);
+  if (elMitha) elMitha.textContent = formatTimeStr(kumamotoTime);
+
+  /* ── LOGIKA SAPAAN OTOMATIS (WAKTU KUMAMOTO) ── */
+  if (DOM.dynamicGreeting) {
+    const hour = kumamotoTime.getHours();
+    let greeting = "~ mengudara melintasi jarak ~"; 
+    
+    // Atur sapaan berdasarkan jam di Jepang
+    if (hour >= 5 && hour < 11) {
+      greeting = "Selamat pagi sayangkuu, selamat beristirahat yhh manisku..capek ya habis kerjanya ᶻ 𝗓 𐰁 .ᐟ";
+    } else if (hour >= 11 && hour < 15) {
+      greeting = "Selamat siang cantikkuu, nanti adek maam yhh ⟡𓌉◯𓇋₊˚⊹♡";
+    } else if (hour >= 15 && hour < 19) {
+      greeting = "Selamat sore maniskuuu, yukkk sayang siap-siap yhh ⸜(｡˃ ᵕ ˂ )⸝♡";
+    } else if (hour >= 19 && hour < 23) {
+      greeting = "Selamat malam imutkuuu, dengerin lagunya pas lagi break yhh sayangg ⏲";
+    } else {
+      greeting = "Sayanggg..nanti pas sampe apato, kabari mas yhh ( ˘ ³˘)♥";
+    }
+
+    // Ubah teks hanya jika ada pergantian pesan (dengan efek fade)
+    if (DOM.dynamicGreeting.textContent !== greeting) {
+      DOM.dynamicGreeting.style.opacity = 0; // Pudarkan teks lama
+      setTimeout(() => {
+        DOM.dynamicGreeting.textContent = greeting;
+        DOM.dynamicGreeting.style.opacity = 1; // Munculkan teks baru
+      }, 500); // Sinkron dengan CSS transition 0.5s
+    }
+  }
+}
