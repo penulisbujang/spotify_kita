@@ -397,6 +397,86 @@ const MUSIC_DATA = [
         duration: "5:00",
       }
     ],
+  },
+
+  /* ──────────────────────────────────────────────────────────
+     CATEGORY 8 — DJ ASIK BET
+  ────────────────────────────────────────────────────────── */
+  {
+    id: "dj-asik-bet",
+    label: "DJ ASIK BET",
+    covers: [
+      "./covers/foto1.jpg",
+      "./covers/foto2.jpg",
+      "./covers/foto3.jpg",
+      "./covers/foto4.jpg",
+      "./covers/foto5.jpg",
+      "./covers/foto6.jpg",
+      "./covers/foto7.jpg",
+      "./covers/foto8.jpg",
+      "./covers/foto9.jpg",
+      "./covers/foto10.jpg",
+      "./covers/foto11.jpg",
+      "./covers/foto12.jpg",
+    ],
+    songs: [
+      {
+        id: 0,
+        title: "DJ KARENA SU SAYANG SLOW",
+        artist: "Maman Fvndy Rmx",
+        src: "./DJ ASIK BET/DJ KARENA SU SAYANG SLOW.mp3",
+        duration: "4:18",
+      },
+      {
+        id: 1,
+        title: "DJ KICAU KICAU KICAU MANIA SLOW",
+        artist: "Maman Fvndy Rmx",
+        src: "./DJ ASIK BET/DJ KICAU KICAU KICAU MANIA SLOW.mp3",
+        duration: "3:53",
+      },
+      {
+        id: 2,
+        title: "DJ MALAM PAGI SLOW",
+        artist: "Maman Fvndy Rmx",
+        src: "./DJ ASIK BET/DJ MALAM PAGI SLOW.mp3",
+        duration: "4:33",
+      },
+      {
+        id: 3,
+        title: "DJ RINDU AKU RINDU KAMU JADI SATU SLOW",
+        artist: "Maman Fvndy Rmx",
+        src: "./DJ ASIK BET/DJ RINDU AKU RINDU KAMU JADI SATU SLOW.mp3",
+        duration: "3:43",
+      },
+      {
+        id: 4,
+        title: "DJ SU JAUH SA TANAM HATI TAPI TRA HASIL SLOW",
+        artist: "Maman Fvndy Rmx",
+        src: "./DJ ASIK BET/DJ SU JAUH SA TANAM HATI TAPI TRA HASIL SLOW.mp3",
+        duration: "4:47",
+      },
+      {
+        id: 5,
+        title: "DJ TABOLA BALE X CALON MANTU IDAMAN SLOW",
+        artist: "Maman Fvndy Rmx",
+        src: "./DJ ASIK BET/DJ TABOLA BALE X CALON MANTU IDAMAN SLOW.mp3",
+        duration: "3:14",
+      },
+      {
+        id: 6,
+        title: "DJ TIA MONIKA X CLBK X WUTWUT X LAMPU KAKA SLOW",
+        artist: "Maman Fvndy Rmx",
+        src: "./DJ ASIK BET/DJ TIA MONIKA X CLBK X WUTWUT X LAMPU KAKA SLOW.mp3",
+        duration: "3:22",
+      },
+      {
+        id: 7,
+        title: "DJ TOR MONITOR KETUA X TABOLA BALE X NGAPAIN REPOT SLOW",
+        artist: "Maman Fvndy Rmx",
+        src: "./DJ ASIK BET/DJ TOR MONITOR KETUA X TABOLA BALE X NGAPAIN REPOT SLOW.mp3",
+        duration: "5:34",
+      }
+    ],
   }
 
 ];
