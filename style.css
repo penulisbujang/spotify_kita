@@ -226,6 +226,7 @@ a { color: inherit; text-decoration: none; }
   font-size: 0.88rem;
   color: var(--text-muted);
   margin-top: var(--space-xs);
+  transition: opacity 0.5s ease-in-out; /* ── Kode baru untuk efek fade ── */
 }
 
 
@@ -1439,4 +1440,101 @@ a { color: inherit; text-decoration: none; }
 /* Stop/off variant label (applied via JS) */
 .timer-set-btn.is-off {
   background: linear-gradient(145deg, #C4937A, #B07060);
+}
+/* ── 22. COUPLE RUNNING TEXT ── */
+.couple-marquee {
+  width: 100%;
+  max-width: var(--slide-size); /* Lebarnya sama dengan kotak foto */
+  overflow: hidden;
+  padding: 10px 0;
+  margin-bottom: -5px; /* Biar agak mepet ke foto, jadi estetik */
+  white-space: nowrap;
+  position: relative;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 20s linear infinite; /* Kecepatan menyesuaikan ritme foto */
+}
+
+.marquee-track span {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--text-accent); /* Warna karamel hangat */
+  padding-right: 40px; /* Jarak antar pengulangan teks */
+  display: inline-block;
+  letter-spacing: 1px;
+}
+
+/* Animasi geser horizontal tanpa henti */
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* Geser separuh track untuk loop sempurna */
+}
+
+/* Tambahkan sedikit hiasan bunga di ujung track jika mau */
+.couple-marquee::before,
+.couple-marquee::after {
+  content: '✿';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  color: var(--accent-rose);
+  z-index: 2;
+  opacity: 0.6;
+}
+
+.couple-marquee::before { left: 5px; }
+.couple-marquee::after { right: 5px; }
+/* ── 23. DUAL TIMEZONE WIDGET ── */
+.dual-clock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+  background: rgba(210, 180, 140, 0.08);
+  padding: 6px 18px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-lighter);
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.clock-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.clock-city {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.clock-time {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-top: 1px;
+}
+
+.clock-heart {
+  font-size: 11px;
+  color: var(--accent-rose);
+  animation: clockHeartBeat 2s infinite ease-in-out;
+}
+
+@keyframes clockHeartBeat {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.22); opacity: 1; }
 }
