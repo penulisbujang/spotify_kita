@@ -476,7 +476,8 @@ const MUSIC_DATA = [
         src: "./DJ ASIK BET/DJ TOR MONITOR KETUA X TABOLA BALE X NGAPAIN REPOT SLOW.mp3",
         duration: "5:34",
       }
-        , /* <-- Jangan lupa koma ini untuk menyambung dari kategori DJ sebelumnya */
+    ],
+  },
 
   /* ──────────────────────────────────────────────────────────
      CATEGORY 9 — India
@@ -537,9 +538,6 @@ const MUSIC_DATA = [
     ],
   }
 
-    ],
-  }
-
 ];
 
 /* ============================================================
@@ -559,3 +557,4 @@ function getSongByIndex(categoryId, songIndex) {
   if (!song) return undefined;
   return { ...song, categoryId };
 }
+
