@@ -476,6 +476,67 @@ const MUSIC_DATA = [
         src: "./DJ ASIK BET/DJ TOR MONITOR KETUA X TABOLA BALE X NGAPAIN REPOT SLOW.mp3",
         duration: "5:34",
       }
+        , /* <-- Jangan lupa koma ini untuk menyambung dari kategori DJ sebelumnya */
+
+  /* ──────────────────────────────────────────────────────────
+     CATEGORY 9 — India
+  ────────────────────────────────────────────────────────── */
+  {
+    id: "india",
+    label: "India",
+    covers: [
+      "./covers/foto1.jpg",
+      "./covers/foto2.jpg",
+      "./covers/foto3.jpg",
+      "./covers/foto4.jpg",
+      "./covers/foto5.jpg",
+      "./covers/foto6.jpg",
+      "./covers/foto7.jpg",
+      "./covers/foto8.jpg",
+      "./covers/foto9.jpg",
+      "./covers/foto10.jpg",
+      "./covers/foto11.jpg",
+      "./covers/foto12.jpg",
+    ],
+    songs: [
+      {
+        id: 0,
+        title: "Andekhi Anjaani",
+        artist: "Lata Mangeshkar & Udit Narayan",
+        src: "./India/Andekhi Anjaani.mp3",
+        duration: "6:12",
+      },
+      {
+        id: 1,
+        title: "Tujh Mein Rab Dikhta Hai",
+        artist: "Roop Kumar Rathod",
+        src: "./India/Tujh Mein Rab Dikhta Hai.mp3",
+        duration: "4:41",
+      },
+      {
+        id: 2,
+        title: "Bole Chudiyan",
+        artist: "Alka Yagnik, Sonu Nigam & Udit Narayan",
+        src: "./India/Bole Chudiyan.mp3",
+        duration: "6:44",
+      },
+      {
+        id: 3,
+        title: "Oh My Darling",
+        artist: "Alisha Chinai & Sonu Nigam",
+        src: "./India/Oh My Darling.mp3",
+        duration: "5:57",
+      },
+      {
+        id: 4,
+        title: "Tum Hi Ho",
+        artist: "Arijit Singh",
+        src: "./India/Tum Hi Ho.mp3",
+        duration: "4:27",
+      }
+    ],
+  }
+
     ],
   }
 
