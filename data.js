@@ -538,8 +538,82 @@ const MUSIC_DATA = [
     ],
   }
 
-];
+  },
 
+  /* ──────────────────────────────────────────────────────────
+     CATEGORY 10 — Love Song
+  ────────────────────────────────────────────────────────── */
+  {
+    id: "love-song",
+    label: "Love Song",
+    covers: [
+      "./covers/foto1.jpg",
+      "./covers/foto2.jpg",
+      "./covers/foto3.jpg",
+      "./covers/foto4.jpg",
+      "./covers/foto5.jpg",
+      "./covers/foto6.jpg",
+      "./covers/foto7.jpg",
+      "./covers/foto8.jpg",
+      "./covers/foto9.jpg",
+      "./covers/foto10.jpg",
+      "./covers/foto11.jpg",
+      "./covers/foto12.jpg",
+    ],
+    songs: [
+      {
+        id: 0,
+        title: "Thank God I Found You",
+        artist: "Mariah Carey, Joe, 98 Degrees",
+        src: "./Love Song/Thank God I Found You.mp3",
+        duration: "4:47",
+      },
+      {
+        id: 1,
+        title: "Lagu Pernikahan Kita",
+        artist: "Tiara Andini & Arsy Widianto",
+        src: "./Love Song/Lagu Pernikahan Kita.mp3",
+        duration: "4:39",
+      },
+      {
+        id: 2,
+        title: "Cintanya Aku",
+        artist: "Tiara Andini & Arsy Widianto",
+        src: "./Love Song/Cintanya Aku.mp3",
+        duration: "4:29",
+      },
+      {
+        id: 3,
+        title: "2001x",
+        artist: "Various Artists",
+        src: "./Love Song/2001x.mp3",
+        duration: "3:40",
+      },
+      {
+        id: 4,
+        title: "Negoro Angin",
+        artist: "Vadesta",
+        src: "./Love Song/Negoro Angin.mp3",
+        duration: "5:08",
+      },
+      {
+        id: 5,
+        title: "Saktenane",
+        artist: "Vadesta",
+        src: "./Love Song/Saktenane.mp3",
+        duration: "5:21",
+      },
+      {
+        id: 6,
+        title: "Jalaraning Tresna",
+        artist: "Vadesta",
+        src: "./Love Song/Jalaraning Tresna.mp3",
+        duration: "5:02",
+      }
+    ],
+  }
+
+];
 /* ============================================================
    HELPER — quick lookup by category id
 ============================================================ */
